@@ -1289,11 +1289,11 @@ done
 
     def get_first_output(self):
         eventcontentlist = []
-        for cmsDriver in self.build_cmsDrivers():
-            eventcontent = cmsDriver.split('--eventcontent')[1].split()[0] + 'output'
-            if ',' in eventcontent:
-                eventcontent = eventcontent.split(',')[0] + 'output'
-            eventcontentlist.append(eventcontent)
+        for seq in self.get_attribute('sequences'):
+            eventcontent = seq['eventcontent']
+            if isinstance(eventcontent,str):
+                eventcontent = eventcontent.split(',')
+            eventcontentlist.append(eventcontent[0]+'output')
         return eventcontentlist
 
     def get_wmagent_type(self):
